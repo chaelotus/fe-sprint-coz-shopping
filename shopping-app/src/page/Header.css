@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
+  padding: 25px 76px;
+}
+.header-column:first-child {
+  display: flex;
+  width: 50%;
+}
+.header-column:last-child {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+.header-logoImg {
+  width: 55px;
+  height: 30px;
+  margin-right: 10px;
+}
+.header-title {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: "Inter";
+}
+.header-menuIcon {
+  width: 30px;
+  height: 20px;
+}
