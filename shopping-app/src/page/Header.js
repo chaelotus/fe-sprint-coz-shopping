@@ -1,14 +1,16 @@
 import "./Header.css";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MdStarOutline, MdOutlineCardGiftcard } from "react-icons/md";
+import { Link } from "react-router-dom";
+
 const Header = () => {
-  const [isClick, SetIsClick] = useState(false);
+  const [isClick, setIsClick] = useState(false);
   const outsideRef = useRef();
 
   useEffect(() => {
     const outsideClick = (e) => {
       if (isClick && !outsideRef.current.contains(e.target)) {
-        SetIsClick(false);
+        setIsClick(false);
       }
     };
     document.addEventListener("mousedown", outsideClick);
@@ -18,33 +20,36 @@ const Header = () => {
   }, [isClick]);
 
   const clickMenuIcon = () => {
-    SetIsClick(true);
+    setIsClick(true);
   };
+
   return (
     <header className="header">
       <div className="header-column">
-        <div className="header-mainTitle">
+        <Link className="header-mainTitle" to="/">
           <img className="header-logoImg" src={require("../img/logo.png")} />
           <div className="header-title">COZ Shopping</div>
-        </div>
+        </Link>
       </div>
+
       <div className="header-column">
         <img
           onClick={clickMenuIcon}
           className="header-menuIcon"
           src={require("../img/menu-icon.png")}
         />
+
         {isClick && (
           <section className="dropDown" ref={outsideRef}>
-            <div>ooo님, 안녕하세요!</div>
-            <div>
+            <div className="dropDown-list">ooo님, 안녕하세요!</div>
+            <Link className="dropDown-list" to="/productlist">
               <MdOutlineCardGiftcard className="dropDown-Icon" />
               <span>상품리스트 페이지</span>
-            </div>
-            <div>
-              <MdStarOutline className="dropDown-Icon" />
+            </Link>
+            <Link className="dropDown-list" to="/bookmark">
+              <MdStarOutline className="dropDownIcon" />
               <span>북마크 페이지</span>
-            </div>
+            </Link>
           </section>
         )}
       </div>
