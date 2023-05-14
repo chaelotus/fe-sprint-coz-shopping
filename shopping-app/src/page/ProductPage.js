@@ -1,11 +1,16 @@
 import React from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 const ProductPage = () => {
   return (
-    <>
-      <Header />
-      <span>프로덕트페이지</span>
-    </>
+    <div className="wrapper">
+      <div className="contentWrapper">
+        <Header className="header" />
+        <div className="main">product-page</div>
+      </div>
+
+      <Footer></Footer>
+    </div>
   );
 };
 export default ProductPage;
