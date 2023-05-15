@@ -4,8 +4,8 @@ import Footer from "./Footer";
 const BookmarkPage = () => {
   return (
     <div className="wrapper">
+      <Header className="header" />
       <div className="contentWrapper">
-        <Header className="header" />
         <div className="main">bookmark-page</div>
       </div>
 
