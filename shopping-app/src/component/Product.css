@@ -12,6 +12,7 @@
   width: 264px;
   height: 210px;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .productList-Container > li > div {

@@ -1,8 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { MdStar } from "react-icons/md";
-
+import Modal from "./Modal";
 import "./Product.css";
 const Product = ({ productData }) => {
+  const [imgClick, setImageClick] = useState(false);
+  const [imageTarget, setImageTarget] = useState("");
+  const [imageName, setImageName] = useState("");
+  const imgClickHandler = (imageUrl, image_Name) => {
+    setImageClick(true);
+    setImageTarget(imageUrl);
+    setImageName(image_Name);
+    console.log(imgClick);
+  };
   return (
     <ul className="productList-Container">
       {productData.map((item) => {
@@ -11,7 +20,10 @@ const Product = ({ productData }) => {
             return (
               <li key={item.id}>
                 <div className="product-image">
-                  <img src={item.image_url} />
+                  <img
+                    onClick={() => imgClickHandler(item.image_url, item.title)}
+                    src={item.image_url}
+                  />
                   <MdStar className="starIcon" />
                 </div>
                 <div className="product-info">
@@ -28,7 +40,12 @@ const Product = ({ productData }) => {
             return (
               <li key={item.id}>
                 <div className="product-image">
-                  <img src={item.brand_image_url} />
+                  <img
+                    onClick={() =>
+                      imgClickHandler(item.brand_image_url, item.brand_name)
+                    }
+                    src={item.brand_image_url}
+                  />
                   <MdStar className="starIcon" />
                 </div>
                 <div className="brand-info">
@@ -46,7 +63,10 @@ const Product = ({ productData }) => {
             return (
               <li key={item.id}>
                 <div className="product-image">
-                  <img src={item.image_url}></img>
+                  <img
+                    onClick={() => imgClickHandler(item.image_url, item.title)}
+                    src={item.image_url}
+                  ></img>
                   <MdStar className="starIcon" />
                 </div>
                 <div className="exhibition-title">{item.title}</div>
@@ -57,7 +77,10 @@ const Product = ({ productData }) => {
             return (
               <li key={item.id}>
                 <div className="product-image">
-                  <img src={item.image_url}></img>
+                  <img
+                    onClick={() => imgClickHandler(item.image_url, item.title)}
+                    src={item.image_url}
+                  ></img>
                   <MdStar className="starIcon" />
                 </div>
                 <div className="category-title">{`# ${item.title}`}</div>
@@ -65,6 +88,7 @@ const Product = ({ productData }) => {
             );
         }
       })}
+      {imgClick && <Modal imgUrl={imageTarget} imgName={imageName} />}
     </ul>
   );
 };
