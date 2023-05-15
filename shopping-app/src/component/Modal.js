@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { MdStar, MdClose } from "react-icons/md";
-import reactDOM, { createPortal } from "react-dom";
+import { createPortal } from "react-dom";
+
 import "./Modal.css";
-const Modal = ({ imgUrl, imgName }) => {
-  console.log(imgUrl.target);
+const Modal = ({ imgUrl, imgName, onClose }) => {
+  const outside = useRef();
+  const stophandler = (e) => {
+    e.stopPropagation();
+  };
   const el = document.getElementById("modal");
   return (
-    <div className="modal-background">
+    <div ref={outside} onClick={onClose} className="modal-background">
       {createPortal(
-        <div>
-          <img className="modal-Image" src={imgUrl}></img>
+        <div onClick={stophandler}>
+          <img className="modal-Image" src={imgUrl} alt="Modal Image" />
           <div className="modal-productInfo">
             <MdStar className="modalStarIcon" />
             <div className="modal-ImageName">{imgName}</div>
           </div>
-          <MdClose className="closeIcon" />
+          <MdClose className="closeIcon" onClick={onClose} />
         </div>,
         el
       )}

@@ -7,7 +7,7 @@ const Product = ({ productData }) => {
   const [imageTarget, setImageTarget] = useState("");
   const [imageName, setImageName] = useState("");
   const imgClickHandler = (imageUrl, image_Name) => {
-    setImageClick(true);
+    setImageClick(!imgClick);
     setImageTarget(imageUrl);
     setImageName(image_Name);
     console.log(imgClick);
@@ -88,7 +88,13 @@ const Product = ({ productData }) => {
             );
         }
       })}
-      {imgClick && <Modal imgUrl={imageTarget} imgName={imageName} />}
+      {imgClick && (
+        <Modal
+          imgUrl={imageTarget}
+          imgName={imageName}
+          onClose={imgClickHandler}
+        />
+      )}
     </ul>
   );
 };
