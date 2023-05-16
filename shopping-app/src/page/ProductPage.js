@@ -5,11 +5,8 @@ const ProductPage = () => {
   return (
     <div className="wrapper">
       <div className="contentWrapper">
-        <Header className="header" />
         <div className="main">product-page</div>
       </div>
-
-      <Footer></Footer>
     </div>
   );
 };
