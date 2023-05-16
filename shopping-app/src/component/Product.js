@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { MdStar } from "react-icons/md";
 import Modal from "./Modal";
 import "./Product.css";
-const Product = ({ productData }) => {
-  const [imgClick, setImageClick] = useState(false);
+//
+const Product = ({ productData, getBookmarkItem }) => {
+  const [imgClicked, setImageClicked] = useState(false);
   const [imageTarget, setImageTarget] = useState("");
   const [imageName, setImageName] = useState("");
+
+  let bookmarkArray = [...getBookmarkItem];
+
+  const onClickBookmark = (item) => {
+    // 기존에 있으면 localStorage에서 제거
+    if (bookmarkArray.filter((list) => list.id === item.id).length > 0) {
+      bookmarkArray = bookmarkArray.filter((list) => list.id !== item.id);
+    } else bookmarkArray.push(item);
+    localStorage.setItem("bookmark", JSON.stringify(bookmarkArray));
+  };
   const imgClickHandler = (imageUrl, image_Name) => {
-    setImageClick(!imgClick);
+    setImageClicked(!imgClicked);
     setImageTarget(imageUrl);
     setImageName(image_Name);
-    console.log(imgClick);
   };
   return (
     <ul className="productList-Container">
@@ -24,7 +34,16 @@ const Product = ({ productData }) => {
                     onClick={() => imgClickHandler(item.image_url, item.title)}
                     src={item.image_url}
                   />
-                  <MdStar className="starIcon" />
+
+                  <MdStar
+                    className={
+                      bookmarkArray.filter((list) => list.id === item.id)
+                        .length > 0
+                        ? "starIcon Toggle"
+                        : "starIcon"
+                    }
+                    onClick={() => onClickBookmark(item)}
+                  />
                 </div>
                 <div className="product-info">
                   <div>{item.title}</div>
@@ -46,7 +65,15 @@ const Product = ({ productData }) => {
                     }
                     src={item.brand_image_url}
                   />
-                  <MdStar className="starIcon" />
+                  <MdStar
+                    className={
+                      bookmarkArray.filter((list) => list.id === item.id)
+                        .length > 0
+                        ? "starIcon Toggle"
+                        : "starIcon"
+                    }
+                    onClick={() => onClickBookmark(item)}
+                  />
                 </div>
                 <div className="brand-info">
                   <div>{item.brand_name}</div>
@@ -67,7 +94,15 @@ const Product = ({ productData }) => {
                     onClick={() => imgClickHandler(item.image_url, item.title)}
                     src={item.image_url}
                   ></img>
-                  <MdStar className="starIcon" />
+                  <MdStar
+                    className={
+                      bookmarkArray.filter((list) => list.id === item.id)
+                        .length > 0
+                        ? "starIcon Toggle"
+                        : "starIcon"
+                    }
+                    onClick={() => onClickBookmark(item)}
+                  />
                 </div>
                 <div className="exhibition-title">{item.title}</div>
                 <div className="exhibition-subtitle">{item.subtitle}</div>
@@ -81,14 +116,23 @@ const Product = ({ productData }) => {
                     onClick={() => imgClickHandler(item.image_url, item.title)}
                     src={item.image_url}
                   ></img>
-                  <MdStar className="starIcon" />
+                  <MdStar
+                    className={
+                      bookmarkArray.filter((list) => list.id === item.id)
+                        .length > 0
+                        ? "starIcon Toggle"
+                        : "starIcon"
+                    }
+                    onClick={() => onClickBookmark(item)}
+                  />
                 </div>
                 <div className="category-title">{`# ${item.title}`}</div>
               </li>
             );
         }
       })}
-      {imgClick && (
+      {/* {bookmarkToggle && } */}
+      {imgClicked && (
         <Modal
           imgUrl={imageTarget}
           imgName={imageName}

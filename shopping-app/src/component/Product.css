@@ -54,4 +54,17 @@
   bottom: 58px;
   right: 8px;
   color: #dfdfdf;
+  cursor: pointer;
+}
+.Toggle {
+  color: #ffd361;
+}
+.bookmark-product .starBookmarkIcon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  bottom: 58px;
+  right: 8px;
+  cursor: pointer;
+  color: #ffd361;
 }

@@ -12,7 +12,7 @@ const Modal = ({ imgUrl, imgName, onClose }) => {
   return (
     <div ref={outside} onClick={onClose} className="modal-background">
       {createPortal(
-        <div onClick={stophandler}>
+        <div className="modalContainder" onClick={stophandler}>
           <img className="modal-Image" src={imgUrl} alt="Modal Image" />
           <div className="modal-productInfo">
             <MdStar className="modalStarIcon" />

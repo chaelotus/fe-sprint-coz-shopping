@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import Product from "../component/Product";
 import "./MainPage.css";
+import "../component/Product.css";
+import { MdOutlineCommentsDisabled } from "react-icons/md";
 const MainPage = () => {
   const [productData, setProductData] = useState([]);
-
+  let getBookmarkItem = [];
+  if (localStorage.getItem("bookmark")) {
+    getBookmarkItem = JSON.parse(localStorage.getItem("bookmark"));
+  }
   useEffect(() => {
     fetch("http://cozshopping.codestates-seb.link/api/v1/products?count=4")
       .then((res) => res.json())
@@ -13,20 +16,29 @@ const MainPage = () => {
   }, []);
   return (
     <div className="wrapper">
-      <Header className="header" />
       <div className="contentWrapper">
         <div className="content">
           <div className="product-list">
             <div className="product-title">상품 리스트</div>
-            <Product productData={productData} />
+            <Product
+              getBookmarkItem={getBookmarkItem}
+              productData={productData}
+            />
           </div>
-          <div className="product-list">
+          <div className="product-list bookmark-list">
             <div className="bookmark-title">북마크 리스트</div>
+            {getBookmarkItem.length > 0 ? (
+              <Product
+                className="bookmark-product"
+                getBookmarkItem={getBookmarkItem}
+                productData={getBookmarkItem.slice(0, 4)}
+              />
+            ) : (
+              <MdOutlineCommentsDisabled className="nodataImage" />
+            )}
           </div>
         </div>
       </div>
-
-      <Footer></Footer>
     </div>
   );
 };
