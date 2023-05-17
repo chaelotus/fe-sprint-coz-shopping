@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { MdStar } from "react-icons/md";
 import Modal from "./Modal";
 import "./Product.css";
