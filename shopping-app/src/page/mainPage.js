@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+
 import Product from "../component/Product";
 import "./MainPage.css";
 import "../component/Product.css";
 import { MdOutlineCommentsDisabled } from "react-icons/md";
+import InitialData from "../data/InitialData";
 const MainPage = () => {
   const [productData, setProductData] = useState([]);
   let getBookmarkItem = [];
   if (localStorage.getItem("bookmark")) {
-    getBookmarkItem = JSON.parse(localStorage.getItem("bookmark"));
+    // getBookmarkItem = JSON.parse(localStorage.getItem("bookmark"));
+    InitialData.bookmark.item = JSON.parse(localStorage.getItem("bookmark"));
+    console.log("Initial", InitialData);
   }
   useEffect(() => {
     fetch("http://cozshopping.codestates-seb.link/api/v1/products?count=4")
@@ -21,17 +25,17 @@ const MainPage = () => {
           <div className="product-list">
             <div className="product-title">상품 리스트</div>
             <Product
-              getBookmarkItem={getBookmarkItem}
+              getBookmarkItem={InitialData.bookmark.item}
               productData={productData}
             />
           </div>
           <div className="product-list bookmark-list">
             <div className="bookmark-title">북마크 리스트</div>
-            {getBookmarkItem.length > 0 ? (
+            {InitialData.bookmark.item.length > 0 ? (
               <Product
                 className="bookmark-product"
-                getBookmarkItem={getBookmarkItem}
-                productData={getBookmarkItem.slice(0, 4)}
+                getBookmarkItem={InitialData.bookmark.item}
+                productData={InitialData.bookmark.item.slice(0, 4)}
               />
             ) : (
               <MdOutlineCommentsDisabled className="nodataImage" />

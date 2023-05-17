@@ -1,9 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToBookmark, removeFromBookmark } from "../Store";
 import { MdStar } from "react-icons/md";
 import Modal from "./Modal";
 import "./Product.css";
+
 //
 const Product = ({ productData, getBookmarkItem }) => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.reducer);
+  console.log("state", state);
+  //const { bookmark } = state;
   const [imgClicked, setImageClicked] = useState(false);
   const [imageTarget, setImageTarget] = useState("");
   const [imageName, setImageName] = useState("");
@@ -14,14 +21,17 @@ const Product = ({ productData, getBookmarkItem }) => {
     // 기존에 있으면 localStorage에서 제거
     if (bookmarkArray.filter((list) => list.id === item.id).length > 0) {
       bookmarkArray = bookmarkArray.filter((list) => list.id !== item.id);
+      dispatch(removeFromBookmark(item.id));
     } else bookmarkArray.push(item);
     localStorage.setItem("bookmark", JSON.stringify(bookmarkArray));
+    dispatch(addToBookmark(item));
   };
   const imgClickHandler = (imageUrl, image_Name) => {
     setImageClicked(!imgClicked);
     setImageTarget(imageUrl);
     setImageName(image_Name);
   };
+
   return (
     <ul className="productList-Container">
       {productData.map((item) => {
