@@ -15,21 +15,21 @@ export const removeFromBookmark = (item) => {
     payload: item,
   };
 };
-export const reducer = (state = InitialData.bookmark, action) => {
+const Bookmarkreducer = (state = InitialData, action) => {
   switch (action.type) {
     case ADD_TO_BOOKMARK:
       return {
-        item: [...state.item, action.payload],
+        bookmarkItem: [...state.bookmarkItem, action.payload],
       };
     case REMOVE_FROM_BOOKMARK:
-      let remove = state.item.filter((item) => item.id !== action.payload.id);
+      let remove = state.bookmarkItem.filter(
+        (item) => item.id !== action.payload.id
+      );
       return {
-        item: [...remove],
+        bookmarkItem: [...remove],
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
-export default reducer;
+export default Bookmarkreducer;

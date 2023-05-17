@@ -10,8 +10,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // const rootReducer = combineReducers()
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const store = createStore(reducer, composeWithDevTools());
-console.log(store);
+const rootReducer = combineReducers({});
+let InitialData = localStorage.getItem("bookmark")
+  ? { bookmarkItem: JSON.parse(localStorage.getItem("bookmark")) }
+  : { bookmarkItem: [] };
+const store = createStore(reducer, InitialData, composeWithDevTools());
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

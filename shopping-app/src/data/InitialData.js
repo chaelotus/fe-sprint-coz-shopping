@@ -1,6 +1,4 @@
 const InitialData = {
-  bookmark: {
-    item: [],
-  },
+  bookmarkItem: [],
 };
 export default InitialData;

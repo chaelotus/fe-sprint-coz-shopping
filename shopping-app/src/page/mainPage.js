@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-
 import Product from "../component/Product";
 import "./MainPage.css";
 import "../component/Product.css";
 import { MdOutlineCommentsDisabled } from "react-icons/md";
 import InitialData from "../data/InitialData";
+import { useSelector } from "react-redux";
 const MainPage = () => {
   const [productData, setProductData] = useState([]);
-  let getBookmarkItem = [];
-  if (localStorage.getItem("bookmark")) {
-    // getBookmarkItem = JSON.parse(localStorage.getItem("bookmark"));
-    InitialData.bookmark.item = JSON.parse(localStorage.getItem("bookmark"));
-    console.log("Initial", InitialData);
-  }
+
+  const getBookmarkArr = useSelector((state) => state.bookmarkItem);
+
   useEffect(() => {
     fetch("http://cozshopping.codestates-seb.link/api/v1/products?count=4")
       .then((res) => res.json())
@@ -24,18 +21,14 @@ const MainPage = () => {
         <div className="content">
           <div className="product-list">
             <div className="product-title">상품 리스트</div>
-            <Product
-              getBookmarkItem={InitialData.bookmark.item}
-              productData={productData}
-            />
+            <Product productData={productData} />
           </div>
           <div className="product-list bookmark-list">
             <div className="bookmark-title">북마크 리스트</div>
-            {InitialData.bookmark.item.length > 0 ? (
+            {getBookmarkArr ? (
               <Product
                 className="bookmark-product"
-                getBookmarkItem={InitialData.bookmark.item}
-                productData={InitialData.bookmark.item.slice(0, 4)}
+                productData={getBookmarkArr}
               />
             ) : (
               <MdOutlineCommentsDisabled className="nodataImage" />
