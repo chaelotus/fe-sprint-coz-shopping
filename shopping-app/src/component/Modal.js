@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { MdStar, MdClose } from "react-icons/md";
 import { createPortal } from "react-dom";
 
@@ -8,7 +8,7 @@ const Modal = ({ imgUrl, imgName, onClose }) => {
   const stophandler = (e) => {
     e.stopPropagation();
   };
-  const el = document.getElementById("modal");
+  const modal = document.getElementById("modal");
   return (
     <div ref={outside} onClick={onClose} className="modal-background">
       {createPortal(
@@ -20,7 +20,7 @@ const Modal = ({ imgUrl, imgName, onClose }) => {
           </div>
           <MdClose className="closeIcon" onClick={onClose} />
         </div>,
-        el
+        modal
       )}
     </div>
   );

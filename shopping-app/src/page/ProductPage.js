@@ -28,7 +28,7 @@ const ProductPage = () => {
           const filteredProducts = filteredData.filter(
             (product) => !existingIds.includes(product.id)
           );
-          console.log([...new Set([...prevList, ...filteredProducts])]);
+
           return [...new Set([...prevList, ...filteredProducts])];
         });
         setIsLoading(false);

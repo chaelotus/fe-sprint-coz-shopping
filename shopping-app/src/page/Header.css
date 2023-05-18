@@ -1,8 +1,8 @@
 .header {
   display: flex;
   align-items: center;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1);
-  padding: 25px 76px;
+  box-shadow: 0px 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+  padding: 1.563rem 4.75rem;
   position: sticky;
   z-index: 1;
 }
