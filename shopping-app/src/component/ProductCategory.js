@@ -6,7 +6,7 @@ import exhibition from "../img/4.png";
 import brand from "../img/5.png";
 import "./ProductCategory.css";
 
-const ProductCategory = () => {
+const ProductCategory = ({ setCategory }) => {
   const [categoryCliked, setCategoryClicked] = useState("All");
   const categoryImg = [
     { img: All, title: "전체", type: "All" },
@@ -16,8 +16,9 @@ const ProductCategory = () => {
     { img: brand, title: "브랜드", type: "Brand" },
   ];
 
-  const onClickCategory = (li) => {
-    setCategoryClicked(li);
+  const onClickCategory = (type) => {
+    setCategoryClicked(type);
+    setCategory(type);
   };
   return (
     <ul className="category-filter">

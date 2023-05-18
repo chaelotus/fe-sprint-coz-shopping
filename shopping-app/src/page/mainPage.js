@@ -28,7 +28,7 @@ const MainPage = () => {
             {getBookmarkArr ? (
               <Product
                 className="bookmark-product"
-                productData={getBookmarkArr}
+                productData={getBookmarkArr.slice(0, 4)}
               />
             ) : (
               <MdOutlineCommentsDisabled className="nodataImage" />

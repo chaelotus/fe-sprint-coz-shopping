@@ -1,11 +1,13 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 .contentWrapper {
   flex: 1;
 }
 li {
   list-style: none;
+}
+ul {
+  padding: 0;
 }

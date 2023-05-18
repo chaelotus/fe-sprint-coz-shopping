@@ -1,16 +1,10 @@
-.productContent {
+.category-container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   margin-top: 24px;
-  height: 100vh;
-  overflow-y: scroll;
-}
-.cetegory-container {
-  width: 1128px;
 }
 .category-product-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  width: 1128px;
+  transform: translate(15%, 0);
 }
