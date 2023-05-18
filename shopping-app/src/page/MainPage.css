@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 3.75rem 0 0.938rem 0;
 }
 .content {
   width: 1128px;
   height: 640px;
-
   display: flex;
   flex-direction: column;
 }

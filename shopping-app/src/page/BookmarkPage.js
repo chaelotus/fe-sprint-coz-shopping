@@ -2,24 +2,22 @@ import React, { useState, useEffect } from "react";
 import ProductCategory from "../component/ProductCategory";
 import Product from "../component/Product";
 import "./BookmarkPage.css";
+import { useSelector } from "react-redux";
 const BookmarkPage = () => {
   const [bookmarkList, setBookmarkList] = useState([]);
   const [categoryType, setCategoryType] = useState("All");
   const [filtered, setFiltered] = useState([]);
+  const getBookmarkArr = useSelector((state) => state.bookmarkItem);
 
   useEffect(() => {
-    setBookmarkList(JSON.parse(localStorage.getItem("bookmark")));
-  }, []);
-  console.log(bookmarkList);
-  useEffect(() => {
     if (categoryType === "All") {
-      setFiltered(bookmarkList);
+      setFiltered(getBookmarkArr);
     } else {
       setFiltered(
-        bookmarkList.filter((product) => product.type === categoryType)
+        getBookmarkArr.filter((product) => product.type === categoryType)
       );
     }
-  }, [categoryType, bookmarkList]);
+  }, [categoryType, getBookmarkArr]);
 
   const setCategory = (type) => {
     setCategoryType(type);
@@ -32,7 +30,7 @@ const BookmarkPage = () => {
       <div className="bookmark-list-product">
         <Product
           className="productPage-product"
-          productData={categoryType === "All" ? bookmarkList : filtered}
+          productData={categoryType === "All" ? getBookmarkArr : filtered}
         />
       </div>
     </div>

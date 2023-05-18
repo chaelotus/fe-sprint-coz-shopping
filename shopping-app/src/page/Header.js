@@ -1,33 +1,35 @@
 import "./Header.css";
+import logo from "../img/logo.png";
+import navMenu from "../img/menu-icon.png";
 import React, { useState, useRef, useEffect } from "react";
 import { MdStarOutline, MdOutlineCardGiftcard } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [isClick, setIsClick] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const outsideRef = useRef();
 
   useEffect(() => {
     const outsideClick = (e) => {
-      if (isClick && !outsideRef.current.contains(e.target)) {
-        setIsClick(false);
+      if (isOpen && !outsideRef.current.contains(e.target)) {
+        setIsOpen(false);
       }
     };
     document.addEventListener("mousedown", outsideClick);
     return () => {
       document.removeEventListener("mousedown", outsideClick);
     };
-  }, [isClick]);
+  }, [isOpen]);
 
   const clickMenuIcon = () => {
-    setIsClick(true);
+    setIsOpen(true);
   };
 
   return (
     <header className="header">
       <div className="header-column">
         <Link className="header-mainTitle" to="/">
-          <img className="header-logoImg" src={require("../img/logo.png")} />
+          <img className="header-logoImg" src={logo} />
           <div className="header-title">COZ Shopping</div>
         </Link>
       </div>
@@ -36,10 +38,10 @@ const Header = () => {
         <img
           onClick={clickMenuIcon}
           className="header-menuIcon"
-          src={require("../img/menu-icon.png")}
+          src={navMenu}
         />
 
-        {isClick && (
+        {isOpen && (
           <section className="dropDown" ref={outsideRef}>
             <div className="dropDown-list">ooo님, 안녕하세요!</div>
             <Link className="dropDown-list" to="/productlist">

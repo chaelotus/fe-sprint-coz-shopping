@@ -5,6 +5,12 @@ import { MdStar } from "react-icons/md";
 import Modal from "./Modal";
 import "./Product.css";
 
+const productType = {
+  PRODUCT: "Product",
+  BRAND: "Brand",
+  EXHIBITION: "Exhibition",
+  CATEGORY: "Category",
+};
 //
 const Product = ({ productData }) => {
   const dispatch = useDispatch();
@@ -45,7 +51,7 @@ const Product = ({ productData }) => {
     <ul className="productList-Container">
       {productData.map((item, i) => {
         switch (item.type) {
-          case "Product":
+          case productType.PRODUCT:
             return (
               <li key={`${item.id}-${i}`}>
                 <div className="product-image">
@@ -76,7 +82,7 @@ const Product = ({ productData }) => {
                 </div>
               </li>
             );
-          case "Brand":
+          case productType.BRAND:
             return (
               <li key={`${item.id}-${i}`}>
                 <div className="product-image">
@@ -109,7 +115,7 @@ const Product = ({ productData }) => {
                 </div>
               </li>
             );
-          case "Exhibition":
+          case productType.EXHIBITION:
             return (
               <li key={`${item.id}-${i}`}>
                 <div className="product-image">
@@ -133,7 +139,7 @@ const Product = ({ productData }) => {
                 <div className="exhibition-subtitle">{item.subtitle}</div>
               </li>
             );
-          case "Category":
+          case productType.CATEGORY:
             return (
               <li key={`${item.id}-${i}`}>
                 <div className="product-image">

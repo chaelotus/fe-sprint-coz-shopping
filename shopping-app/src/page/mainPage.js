@@ -3,8 +3,8 @@ import Product from "../component/Product";
 import "./MainPage.css";
 import "../component/Product.css";
 import { MdOutlineCommentsDisabled } from "react-icons/md";
-import InitialData from "../data/InitialData";
 import { useSelector } from "react-redux";
+
 const MainPage = () => {
   const [productData, setProductData] = useState([]);
 
