@@ -1,12 +1,14 @@
 .productList-Container {
   display: flex;
-  width: 100%;
+  width: 1128px;
   padding: 0;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .productList-Container > li {
   list-style: none;
   position: relative;
+  width: 264px;
 }
 .product-image > img {
   width: 264px;
@@ -57,14 +59,5 @@
   cursor: pointer;
 }
 .Toggle {
-  color: #ffd361;
-}
-.bookmark-product .starBookmarkIcon {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  bottom: 58px;
-  right: 8px;
-  cursor: pointer;
   color: #ffd361;
 }

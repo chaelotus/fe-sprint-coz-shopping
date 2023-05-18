@@ -1,34 +1,53 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToBookmark, removeFromBookmark } from "../Store";
 import { MdStar } from "react-icons/md";
 import Modal from "./Modal";
 import "./Product.css";
+
 //
-const Product = ({ productData, getBookmarkItem }) => {
+const Product = ({ productData }) => {
+  const dispatch = useDispatch();
+  const getBookmarkArr = useSelector((state) => state.bookmarkItem);
+
   const [imgClicked, setImageClicked] = useState(false);
   const [imageTarget, setImageTarget] = useState("");
   const [imageName, setImageName] = useState("");
 
-  let bookmarkArray = [...getBookmarkItem];
-
   const onClickBookmark = (item) => {
     // 기존에 있으면 localStorage에서 제거
-    if (bookmarkArray.filter((list) => list.id === item.id).length > 0) {
-      bookmarkArray = bookmarkArray.filter((list) => list.id !== item.id);
-    } else bookmarkArray.push(item);
-    localStorage.setItem("bookmark", JSON.stringify(bookmarkArray));
+    if (
+      Array.isArray(getBookmarkArr) &&
+      getBookmarkArr.some((bookmarkItem) => bookmarkItem.id === item.id)
+    ) {
+      dispatch(removeFromBookmark(item));
+      localStorage.setItem(
+        "bookmark",
+        JSON.stringify(
+          getBookmarkArr.filter((removeItem) => removeItem.id !== item.id)
+        )
+      );
+    } else {
+      dispatch(addToBookmark(item));
+      localStorage.setItem(
+        "bookmark",
+        JSON.stringify([...getBookmarkArr, item])
+      );
+    }
   };
   const imgClickHandler = (imageUrl, image_Name) => {
     setImageClicked(!imgClicked);
     setImageTarget(imageUrl);
     setImageName(image_Name);
   };
+
   return (
     <ul className="productList-Container">
-      {productData.map((item) => {
+      {productData.map((item, i) => {
         switch (item.type) {
           case "Product":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() => imgClickHandler(item.image_url, item.title)}
@@ -37,8 +56,10 @@ const Product = ({ productData, getBookmarkItem }) => {
 
                   <MdStar
                     className={
-                      bookmarkArray.filter((list) => list.id === item.id)
-                        .length > 0
+                      Array.isArray(getBookmarkArr) &&
+                      getBookmarkArr.some(
+                        (bookmarkItem) => bookmarkItem.id === item.id
+                      )
                         ? "starIcon Toggle"
                         : "starIcon"
                     }
@@ -57,7 +78,7 @@ const Product = ({ productData, getBookmarkItem }) => {
             );
           case "Brand":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() =>
@@ -67,8 +88,10 @@ const Product = ({ productData, getBookmarkItem }) => {
                   />
                   <MdStar
                     className={
-                      bookmarkArray.filter((list) => list.id === item.id)
-                        .length > 0
+                      Array.isArray(getBookmarkArr) &&
+                      getBookmarkArr.some(
+                        (bookmarkItem) => bookmarkItem.id === item.id
+                      )
                         ? "starIcon Toggle"
                         : "starIcon"
                     }
@@ -88,7 +111,7 @@ const Product = ({ productData, getBookmarkItem }) => {
             );
           case "Exhibition":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() => imgClickHandler(item.image_url, item.title)}
@@ -96,8 +119,10 @@ const Product = ({ productData, getBookmarkItem }) => {
                   ></img>
                   <MdStar
                     className={
-                      bookmarkArray.filter((list) => list.id === item.id)
-                        .length > 0
+                      Array.isArray(getBookmarkArr) &&
+                      getBookmarkArr.some(
+                        (bookmarkItem) => bookmarkItem.id === item.id
+                      )
                         ? "starIcon Toggle"
                         : "starIcon"
                     }
@@ -110,7 +135,7 @@ const Product = ({ productData, getBookmarkItem }) => {
             );
           case "Category":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() => imgClickHandler(item.image_url, item.title)}
@@ -118,8 +143,10 @@ const Product = ({ productData, getBookmarkItem }) => {
                   ></img>
                   <MdStar
                     className={
-                      bookmarkArray.filter((list) => list.id === item.id)
-                        .length > 0
+                      Array.isArray(getBookmarkArr) &&
+                      getBookmarkArr.some(
+                        (bookmarkItem) => bookmarkItem.id === item.id
+                      )
                         ? "starIcon Toggle"
                         : "starIcon"
                     }
@@ -131,7 +158,6 @@ const Product = ({ productData, getBookmarkItem }) => {
             );
         }
       })}
-      {/* {bookmarkToggle && } */}
       {imgClicked && (
         <Modal
           imgUrl={imageTarget}
