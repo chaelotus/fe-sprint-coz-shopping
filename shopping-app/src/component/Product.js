@@ -43,11 +43,11 @@ const Product = ({ productData }) => {
 
   return (
     <ul className="productList-Container">
-      {productData.map((item) => {
+      {productData.map((item, i) => {
         switch (item.type) {
           case "Product":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() => imgClickHandler(item.image_url, item.title)}
@@ -78,7 +78,7 @@ const Product = ({ productData }) => {
             );
           case "Brand":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() =>
@@ -111,7 +111,7 @@ const Product = ({ productData }) => {
             );
           case "Exhibition":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() => imgClickHandler(item.image_url, item.title)}
@@ -135,7 +135,7 @@ const Product = ({ productData }) => {
             );
           case "Category":
             return (
-              <li key={item.id}>
+              <li key={`${item.id}-${i}`}>
                 <div className="product-image">
                   <img
                     onClick={() => imgClickHandler(item.image_url, item.title)}
